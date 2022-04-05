@@ -1,0 +1,4 @@
+D
+D;JGT
+D;JEQ
+D=D-1;JGT
