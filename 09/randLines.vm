@@ -1,0 +1,196 @@
+function randLines.new 0
+push constant 12
+call Memory.alloc 1
+pop pointer 0
+push constant 255
+pop this 1
+push constant 511
+pop this 2
+push constant 20
+pop this 3
+push constant 40
+pop this 4
+push pointer 0
+return
+function randLines.genWaitTime 0
+push argument 0
+pop pointer 0
+push constant 10
+push constant 11
+push argument 1
+sub
+call Math.multiply 2
+pop this 5
+push this 5
+return
+function randLines.drawLine 0
+push argument 0
+pop pointer 0
+push constant 10
+push constant 150
+push argument 4
+sub
+call Math.max 2
+pop this 10
+push argument 3
+pop this 11
+push constant 0
+not
+call Screen.setColor 1
+pop temp 0
+push this 11
+push constant 1
+eq
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
+push constant 0
+push argument 2
+push this 10
+sub
+call Math.max 2
+pop this 9
+push constant 0
+push this 9
+push this 2
+push this 9
+call Screen.drawLine 4
+pop temp 0
+label IF_FALSE0
+push this 11
+push constant 2
+eq
+if-goto IF_TRUE1
+goto IF_FALSE1
+label IF_TRUE1
+push this 1
+push argument 2
+push this 10
+add
+call Math.min 2
+pop this 9
+push constant 0
+push this 9
+push this 2
+push this 9
+call Screen.drawLine 4
+pop temp 0
+label IF_FALSE1
+push this 11
+push constant 3
+eq
+if-goto IF_TRUE2
+goto IF_FALSE2
+label IF_TRUE2
+push constant 0
+push argument 1
+push this 10
+sub
+call Math.max 2
+pop this 8
+push this 8
+push constant 0
+push this 8
+push this 1
+call Screen.drawLine 4
+pop temp 0
+label IF_FALSE2
+push this 11
+push constant 4
+eq
+if-goto IF_TRUE3
+goto IF_FALSE3
+label IF_TRUE3
+push this 2
+push argument 1
+push this 10
+add
+call Math.min 2
+pop this 8
+push this 8
+push constant 0
+push this 8
+push this 1
+call Screen.drawLine 4
+pop temp 0
+label IF_FALSE3
+push constant 0
+return
+function randLines.checkCollision 0
+push argument 0
+pop pointer 0
+push this 11
+push constant 1
+eq
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
+push argument 2
+push constant 11
+sub
+push this 9
+lt
+if-goto IF_TRUE1
+goto IF_FALSE1
+label IF_TRUE1
+push constant 0
+not
+return
+label IF_FALSE1
+label IF_FALSE0
+push this 11
+push constant 2
+eq
+if-goto IF_TRUE2
+goto IF_FALSE2
+label IF_TRUE2
+push argument 2
+push constant 11
+add
+push this 9
+gt
+return
+label IF_FALSE2
+push this 11
+push constant 3
+eq
+if-goto IF_TRUE3
+goto IF_FALSE3
+label IF_TRUE3
+push argument 1
+push constant 11
+sub
+push this 8
+lt
+return
+label IF_FALSE3
+push this 11
+push constant 4
+eq
+if-goto IF_TRUE4
+goto IF_FALSE4
+label IF_TRUE4
+push argument 1
+push constant 11
+add
+push this 8
+gt
+return
+label IF_FALSE4
+push constant 0
+return
+function randLines.reset 0
+push argument 0
+pop pointer 0
+push constant 0
+pop this 11
+push constant 0
+return
+function randLines.dispose 0
+push argument 0
+pop pointer 0
+push pointer 0
+call Memory.deAlloc 1
+pop temp 0
+push constant 0
+return

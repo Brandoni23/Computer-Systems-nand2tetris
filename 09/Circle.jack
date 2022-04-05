@@ -1,0 +1,94 @@
+class Circle {
+
+   field int x, y; // screen location of the circle's top-left corner
+   field int r; // length of this triangle, in pixels
+   field int speed; // speed of circle needs code
+
+   /** Constructs a new circle with a given location and size. */
+   constructor Circle new(int Ax, int Ay, int Aradius, int Speedo) {
+      let x = Ax;
+      let y = Ay;
+      let r = Aradius;
+      let speed = Speedo;
+      do draw();
+      return this;
+   }
+
+   /** Disposes this circle. */
+   method void dispose() {
+      do Memory.deAlloc(this);
+      return;
+   }
+
+   /** Draws the circle on the screen. */
+   method void draw() {
+      do Screen.setColor(true);
+      do Screen.drawCircle(x, y, r);
+      return;
+   }
+
+   /** Erases the circle from the screen. */
+   method void erase() {
+      do Screen.setColor(false);
+      do Screen.drawCircle(x, y, r);
+      return;
+   }
+
+
+   /** Moves the circle up by 2 pixels. */
+   method void moveUp() {
+      if ((y - r) > 1) {
+         do Screen.setColor(false);
+         do Screen.drawCircle(x, y, r);
+         let y = y - speed;
+         do Screen.setColor(true);
+         do Screen.drawCircle(x, y, r);
+      }
+      return;
+   }
+
+   method int getX()
+   {
+      return x;
+   }
+   method int getY()
+   {
+      return y;
+   }
+
+   /** Moves the circle down by 2 pixels. */
+   method void moveDown() {
+      if ((y + r) < 254) {
+         do Screen.setColor(false);
+         do Screen.drawCircle(x, y, r);
+         let y = y + speed;
+         do Screen.setColor(true);
+         do Screen.drawCircle(x, y, r);
+      }
+      return;
+   }
+
+   /** Moves the square left by 2 pixels. */
+   method void moveLeft() {
+      if ((x - r) > 1) {
+         do Screen.setColor(false);
+         do Screen.drawCircle(x, y, r);
+         let x = x - speed;
+         do Screen.setColor(true);
+         do Screen.drawCircle(x, y, r);
+      }
+      return;
+   }
+
+   /** Moves the square right by 2 pixels. */
+   method void moveRight() {
+      if ((x + r) < 510) {
+         do Screen.setColor(false);
+         do Screen.drawCircle(x, y, r);
+         let x = x + speed;
+         do Screen.setColor(true);
+         do Screen.drawCircle(x, y, r);
+      }
+      return;
+   }
+}
