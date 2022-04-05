@@ -1,0 +1,104 @@
+//this class generates two lines along the x and y axes at random locations
+
+class randLines
+{
+    field int speed;
+    field int rowLimit;
+    field int columnLimit;
+    field int incrementVert;
+    field int incrementHorz;
+    field int waitTime;
+    field int Ycounter;
+    field int Xcounter;
+    field int newX;
+    field int newY;
+    field int spacing;
+    field int direction;
+
+
+    constructor randLines new()
+    {
+        let rowLimit = 255;
+        let columnLimit = 511;
+        //increment Vertical line by 15 pixels every time drawLine is called
+        let incrementVert = 20;
+        //increment Horizontal line by 7 pixels every time drawLine is called
+        let incrementHorz = 40;
+        return this;
+    }
+    
+    method int genWaitTime(int speed)
+    {
+        //define speed from 1 to 10
+        //greater speed means lower wait time
+        let waitTime = 10 * (11-speed) ;
+        return waitTime;
+    }
+
+    method void drawLine(int startX, int startY, int direction1, int level)
+    {
+        // idea: can change the spacing as level increases
+        let spacing = Math.max(10, 150 - level);
+        let direction = direction1;
+        do Screen.setColor(true);
+        if (direction = 1) {
+            // up -> horizontal line
+            let newY = Math.max(0, startY - spacing);
+            do Screen.drawLine(0, newY, columnLimit, newY);
+        }
+        if (direction = 2) {
+            // down
+            let newY = Math.min(rowLimit, startY + spacing);
+            do Screen.drawLine(0, newY, columnLimit, newY);
+        }
+        if (direction = 3) {
+            // left -- vert line
+            let newX = Math.max(0, startX - spacing);
+            do Screen.drawLine(newX, 0, newX, rowLimit);
+        }
+        if (direction = 4) {
+            // right
+            let newX = Math.min(columnLimit, startX + spacing);
+            do Screen.drawLine(newX, 0, newX, rowLimit);
+        }
+        return;
+    }
+
+    method boolean checkCollision(int startX, int startY) {
+        // start X, startY are the coord for the center
+        // if ((startX + 10 = columnLimit) | (startX - 10 = 0)) {
+        //     return true;
+        // }
+        // if ((startY + 10 = rowLimit) | (startY - 10 = 0)) {
+        //     return true;
+        // }
+        if (direction = 1) {
+            if ((startY - 11) < newY) {
+                return true;
+            }
+        }
+        if (direction = 2) {
+            return ((startY + 11) > newY);
+        }
+        if (direction = 3) {
+            return ((startX - 11) < newX);
+        }
+        if (direction = 4) {
+            return ((startX + 11) > newX);
+        }
+        return false;
+    }
+
+    method void reset() {
+        let direction = 0;
+        return;
+    }
+
+
+       /** Disposes lines? */
+   method void dispose() 
+   {
+      do Memory.deAlloc(this);
+      return;
+   }
+}
